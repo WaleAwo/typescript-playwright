@@ -1,0 +1,38 @@
+# Node modules
+node_modules/
+
+# Build output
+dist/
+build/
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
+*.temp
+
+# Environment variables
+.env
+
+# Playwright specific
+playwright-report/
+*.test.ts
+
+# IDE settings
+.vscode/
+.idea/
+
+# Operating System files
+.DS_Store
+Thumbs.db
+
+# TypeScript specific
+*.tsbuildinfo
+
+# Exclude test results
+test-results/
+
+# Exclude Tests folder
+/tests
+/tests-examples
