@@ -1,7 +1,7 @@
 import {type Locator, type Page} from '@playwright/test';
-import {OrangeHRMDashboardPage} from "./orangehrm-dashboard-page";
+import {DashboardPage} from "./dashboard-page";
 
-export class OrangeHRMLoginPage {
+export class LoginPage {
     readonly page: Page;
     readonly usernameField: Locator;
     readonly passwordField: Locator;
@@ -14,6 +14,10 @@ export class OrangeHRMLoginPage {
         this.loginButton = page.getByRole('button', {name: 'Login'})
     }
 
+    async goto() {
+        await this.page.goto("https://opensource-demo.orangehrmlive.com/web/index.php/auth/login")
+    }
+
     async setUsernameField(username: string) {
         await this.usernameField.fill(username);
     }
@@ -23,15 +27,15 @@ export class OrangeHRMLoginPage {
     }
 
     // transition to another page
-    async clickLoginButton(): Promise<OrangeHRMDashboardPage> {
+    async clickLoginButton(): Promise<DashboardPage> {
         await this.loginButton.click();
-        return new OrangeHRMDashboardPage(this.page);
+        return new DashboardPage(this.page);
     }
 
     // combines multiple methods + transition to another page
-    async login(username: string, password: string): Promise<OrangeHRMDashboardPage> {
-        await this.usernameField.fill(username);
-        await this.passwordField.fill(password);
+    async login(username: string, password: string): Promise<DashboardPage> {
+        await this.setUsernameField(username);
+        await this.setPasswordField(password);
         return await this.clickLoginButton()
     }
 }
