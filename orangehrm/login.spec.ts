@@ -18,15 +18,12 @@ test.describe('Login', () => {
 
     test('should perform basic login using pom', async ({page}) => {
         const orangehrmLoginPage = new OrangeHRMLoginPage(page)
-
-        await orangehrmLoginPage.setUsernameField("Admin")
-        await orangehrmLoginPage.setPasswordField("admin123")
-        await orangehrmLoginPage.clickLoginButton();
+        const orangehrmDashboardPage = await orangehrmLoginPage.login("Admin", "admin123")
 
         await expect(page).toHaveTitle(/OrangeHRM/);
+        await expect(orangehrmDashboardPage.dashboardHeader).toBeVisible()
 
-        const headerText = await orangehrmLoginPage.getDashboardHeaderText();
-        await expect(orangehrmLoginPage.dashboardHeader).toBeVisible()
+        const headerText = await orangehrmDashboardPage.getDashboardHeaderText();
         expect(headerText).toBe('Dashboard');
     })
 })
